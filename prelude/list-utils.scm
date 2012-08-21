@@ -1,28 +1,34 @@
+
 (define (take n xs)
+  "Return a list of the n items on the given list or the entire list if there are fewer than n items."
   (let loop ((n n) (xs xs) (ys '()))
     (if (or (zero? n) (null? xs))
 	(reverse ys)
 	(loop (- n 1) (cdr xs) (cons (car xs) ys)))))
 
 (define (drop n xs)
+  "Drops n items from the given list and returns the remainder of the list. If the list is shorter than n items, the empty list is returned."
   (let loop ((n n) (xs xs))
     (if (or (zero? n) (null? xs))
 	xs
 	(loop (- n 1) (cdr xs)))))
 
 (define (split n xs)
+  "Returns two values: a list of the first n items in the list; and a list of the remaining items."
   (let loop ((n n) (xs xs) (ys '()))
     (if (or (zero? n) (null? xs))
 	(values (reverse ys) xs)
 	(loop (- n 1) (cdr xs) (cons (car xs) ys)))))
 
 (define (take-while pred? xs)
+  "Returns a list of first n items in the given list until the first item that the given predicate returns false for."
   (let loop ((xs xs) (ys '()))
     (if (or (null? xs) (not (pred? (car xs))))
 	(reverse ys)
 	(loop (cdr xs) (cons (car xs) ys)))))
 
 (define (drop-while pred? xs)
+  "Drop items in the given list until the first item that the given predicate returns false for. Returns the remaining items in the list."
   (let loop ((xs xs))
     (if (or (null? xs) (not (pred? (car xs))))
 	xs
